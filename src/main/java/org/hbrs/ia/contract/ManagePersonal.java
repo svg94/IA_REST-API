@@ -20,4 +20,14 @@ public interface ManagePersonal {
     //added interface method for dropping database for testing purposes.
     void dropSalesMen();
     void dropEvalRecord();
+
+    /*
+    *   Methods for completen CRUD Pattern. Sadly I dont have enough time for this assignment at the moment. (But I did like it tho)
+    *
+    * void updateSalesMan();
+    * void deleteSalesMan();
+    *
+    * void updateEvalRecord();
+    * void deleteEvalRecord();
+    * */
 }

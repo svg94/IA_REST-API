@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.hbrs.ia.contract.ManagePersonal;
 import org.hbrs.ia.contract.Manager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.hbrs.ia.model.SalesMan;
@@ -32,6 +33,11 @@ class HighPerformanceTest {
         manager = new Manager();
 
     }
+    @AfterEach
+    void cleanup(){
+        manager.dropSalesMen();
+        salesmen.drop();
+    }
 
     @Test
     void insertSalesMan() {
@@ -45,7 +51,9 @@ class HighPerformanceTest {
         salesmen.insertOne(document);
 
         // READ (Finding) the stored Documnent
-        Document newDocument = this.salesmen.find().first();
+        Document alda = new Document();
+        alda.append("id",90133);
+        Document newDocument = this.salesmen.find(alda).first();
         System.out.println("Printing the object (JSON): " + newDocument );
 
         // Assertion
