@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.hbrs.ia.contract.ManagePersonal;
 import org.hbrs.ia.contract.Manager;
+import org.hbrs.ia.contract.ui.ConsoleUI;
 import org.hbrs.ia.model.EvaluationRecord;
 import org.hbrs.ia.model.SalesMan;
 
@@ -13,47 +14,57 @@ import java.util.*;
 
 public class Main {         /*Just testing out DB-features.*/
     public static void main(String[] args) {
-        //TODO: GUI zum abfragen: "Was willst du tun".
-        //TODO: In Main einbinden und Main bauen.
         ManagePersonal manager = new Manager();
-        Scanner input = new Scanner(System.in);
+        ConsoleUI cui= new ConsoleUI();
         while(true){
-            System.out.println("Welcome to Mongo-DB Client. What do you want to do?");
-            System.out.println("Enter the key/number of the task you want to do.");
-            System.out.println("[1] Look up a Salesman");
-            System.out.println("[2]");
-            System.out.println("[3]");
-            System.out.println("[3] Exit");
-            String taskToDo = input.nextLine();
-
+            cui.startScreen();
+            String taskToDo = cui.input();
+            Integer id;
             switch(taskToDo) {
-                case "1":
-                    String sid = input.nextLine();
+                case "1":   //LOOK UP SALESMAN
+                    cui.print("Ok, then please give me the ID of the Salesman.");
+                    String sid = cui.input();
                     SalesMan pulled = manager.readSalesMan(Integer.valueOf(sid));
-                    System.out.println("ID: "+pulled.getId());
-                    System.out.println("Vorname: "+pulled.getFirstname());
-                    System.out.println("Nachname: "+pulled.getLastname());
+                    if(pulled ==null)
+                        cui.print("Tut mir leid, es wurde kein Salesman unter dieser ID gefunden.");
+                    cui.printSalesMan(pulled);
                     break;
-
-                case "3":
+                case "2":   //QUERY SALESMEN
+                    String input = cui.printQueryStart();
+                    String[] keyvalue = input.split(",");
+                    LinkedList<SalesMan> query = (LinkedList<SalesMan>) manager.querySalesMan(keyvalue[1],keyvalue[0]);
+                    for(SalesMan s:query){
+                        cui.printSalesMan(s);
+                    }
+                    break;
+                case "3":   //CREATE SALESMAN
+                    SalesMan toCreate = cui.printCreateSalesMan();
+                    manager.createSalesMan(toCreate);
+                    break;
+                case "4":   //ADD EVALUATION RECORD
+                    cui.print("Please give me the Salesman ID for the Performance Record.");
+                    id = Integer.valueOf(cui.input());
+                    EvaluationRecord toAdd = cui.printAddEvalRecord();
+                    manager.addPerformanceRecord(toAdd,id);
+                    break;
+                case "5":   //READ EVALUATION RECORD
+                    cui.print("Please give me the ID of the Salesman whose \nperformance records you want to read.");
+                    id =Integer.valueOf(cui.input());
+                    EvaluationRecord eval = manager.readEvaluationRecords(id);
+                    cui.printReadEvalRecord(eval, id);
+                    break;
+                case "Drop salesmen":
+                    manager.dropSalesMen();
+                    break;
+                case "Drop evalrecs":
+                    manager.dropEvalRecord();
+                    break;
+                case "Exit":
                     return;
                 default:
-                    System.out.println("Bro komm schon. Falscher Input.");
+                    cui.print("Bro komm schon. Falscher Input.");
             }
-
+            cui.pressToContinue();
         }
-
-
-
-        /*ManagePersonal manager = new Manager();
-        manager.dropSalesMen();
-        SalesMan testPerson = new SalesMan("steve", "bratan", 12);
-        SalesMan testPerson2 = new SalesMan("steve", "alter", 1234);
-        SalesMan testPerson3 = new SalesMan("yep", "brate", 1265);
-        // ... now storing the object
-        manager.createSalesMan(testPerson);
-        manager.createSalesMan(testPerson2);
-        manager.createSalesMan(testPerson3);*/
-
     }
 }
