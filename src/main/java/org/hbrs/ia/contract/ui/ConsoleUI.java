@@ -38,7 +38,7 @@ public class ConsoleUI {
         print("Like so: ID,firstname,lastname");
         String input = input();
         String[] attr = input.split(",");
-        return new SalesMan(attr[0],attr[1],Integer.valueOf(attr[2]));
+        return new SalesMan(attr[1],attr[2],Integer.valueOf(attr[0]));
     }
     public void printSalesMan(SalesMan s){
         print("........Salesman........");
@@ -57,7 +57,7 @@ public class ConsoleUI {
         print("Please give me the Data in that form:");
         print("leadership;openness;social;attitudeToClient;CommunicationSkils;Integrity");
         print("Each category has exactly to values in that form:\nexpected,actual");
-        print("So the input looks like this:");
+        print("So the input looks like this: 1,1;2,1;4,2; etc.");
         String input = input();
         String[] categories = input.split(";");
         Integer[][] allValues = new Integer[6][2];                          //[Category][expected,actual]
