@@ -2,16 +2,18 @@ package org.hbrs.ia.model;
 
 import org.bson.Document;
 
+import java.util.ArrayList;
+
 public class EvaluationRecord {
     //private Integer id;
-    private Integer[] leadershipCompetence;     //All attributes are Arrays with 2 elements (target, value)
-    private Integer[] openness;
-    private Integer[] social;
-    private Integer[] attitudeToClient;
-    private Integer[] communicationSkills;
-    private Integer[] integrityToCompany;
+    private ArrayList<Integer> leadershipCompetence;     //All attributes are Arrays with 2 elements (target, value)
+    private ArrayList<Integer> openness;
+    private ArrayList<Integer> social;
+    private ArrayList<Integer> attitudeToClient;
+    private ArrayList<Integer> communicationSkills;
+    private ArrayList<Integer> integrityToCompany;
 
-    public EvaluationRecord(Integer[] leader, Integer[] open, Integer[] social, Integer[] client, Integer[] comm, Integer[] integr) throws Exception {
+    public EvaluationRecord(ArrayList<Integer> leader, ArrayList<Integer> open, ArrayList<Integer> social, ArrayList<Integer> client, ArrayList<Integer> comm, ArrayList<Integer> integr) throws Exception {
         if(!checkForRightSize(leader, open, social, client, comm, integr)) throw new Exception("Wrong Input. Sizes of at least one input not correct.");
         this.leadershipCompetence = leader;
         this.openness = open;
@@ -24,8 +26,8 @@ public class EvaluationRecord {
     /*Building method for checking if array input has
      *the right size. Doing so I reduce complexity in
      *Constructor.(Better for maintenance)*/
-    private boolean checkForRightSize(Integer[] leader, Integer[] open, Integer[] social, Integer[] client, Integer[] comm, Integer[] integr){
-        return (leader.length == 2) && (open.length == 2) && (social.length == 2) && (client.length == 2) && (comm.length == 2) && (integr.length == 2);
+    private boolean checkForRightSize(ArrayList<Integer> leader, ArrayList<Integer> open, ArrayList<Integer> social, ArrayList<Integer> client, ArrayList<Integer> comm, ArrayList<Integer> integr){
+        return (leader.size() == 2) && (open.size() == 2) && (social.size() == 2) && (client.size() == 2) && (comm.size() == 2) && (integr.size() == 2);
     }
 
     public Document toDocument(){
@@ -41,51 +43,51 @@ public class EvaluationRecord {
 
     /*Getter and Setter*/
 
-    public Integer[] getLeadershipCompetence() {
+    public ArrayList<Integer> getLeadershipCompetence() {
         return leadershipCompetence;
     }
 
-    public void setLeadershipCompetence(Integer[] leadershipCompetence) {
+    public void setLeadershipCompetence(ArrayList<Integer> leadershipCompetence) {
         this.leadershipCompetence = leadershipCompetence;
     }
 
-    public Integer[] getOpenness() {
+    public ArrayList<Integer> getOpenness() {
         return openness;
     }
 
-    public void setOpenness(Integer[] openness) {
+    public void setOpenness(ArrayList<Integer> openness) {
         this.openness = openness;
     }
 
-    public Integer[] getSocial() {
+    public ArrayList<Integer> getSocial() {
         return social;
     }
 
-    public void setSocial(Integer[] social) {
+    public void setSocial(ArrayList<Integer> social) {
         this.social = social;
     }
 
-    public Integer[] getAttitudeToClient() {
+    public ArrayList<Integer> getAttitudeToClient() {
         return attitudeToClient;
     }
 
-    public void setAttitudeToClient(Integer[] attitudeToClient) {
+    public void setAttitudeToClient(ArrayList<Integer> attitudeToClient) {
         this.attitudeToClient = attitudeToClient;
     }
 
-    public Integer[] getCommunicationSkills() {
+    public ArrayList<Integer> getCommunicationSkills() {
         return communicationSkills;
     }
 
-    public void setCommunicationSkills(Integer[] communicationSkills) {
+    public void setCommunicationSkills(ArrayList<Integer> communicationSkills) {
         this.communicationSkills = communicationSkills;
     }
 
-    public Integer[] getIntegrityToCompany() {
+    public ArrayList<Integer> getIntegrityToCompany() {
         return integrityToCompany;
     }
 
-    public void setIntegrityToCompany(Integer[] integrityToCompany) {
+    public void setIntegrityToCompany(ArrayList<Integer> integrityToCompany) {
         this.integrityToCompany = integrityToCompany;
     }
 }

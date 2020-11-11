@@ -9,6 +9,7 @@ import org.bson.Document;
 import org.hbrs.ia.model.EvaluationRecord;
 import org.hbrs.ia.model.SalesMan;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,8 +34,8 @@ public class Manager implements ManagePersonal{
     @Override
     public void addPerformanceRecord(EvaluationRecord record, int sid) {
         Document document = new Document();
-        document.append("sid",sid);
         document = record.toDocument();
+        document.append("sid",sid);
         evalrecords.insertOne(document);
     }
 
@@ -76,12 +77,12 @@ public class Manager implements ManagePersonal{
         pull.append("sid", sid);
 
         Document d = evalrecords.find(pull).first();
-        Integer[] d1 = (Integer[]) d.get("leadershipcompetence");
-        Integer[] d2 = (Integer[]) d.get("openness");
-        Integer[] d3 = (Integer[]) d.get("social");
-        Integer[] d4 = (Integer[]) d.get("attitudetowardsclients");
-        Integer[] d5 = (Integer[]) d.get("communicationskills");
-        Integer[] d6 = (Integer[]) d.get("integritytocompany");
+        ArrayList<Integer> d1 = (ArrayList<Integer>) d.get("leadershipcompetence");
+        ArrayList<Integer> d2 = (ArrayList<Integer>) d.get("openness");
+        ArrayList<Integer> d3 = (ArrayList<Integer>) d.get("social");
+        ArrayList<Integer> d4 = (ArrayList<Integer>) d.get("attitudetowardsclients");
+        ArrayList<Integer> d5 = (ArrayList<Integer>) d.get("communicationskills");
+        ArrayList<Integer> d6 = (ArrayList<Integer>) d.get("integritytocompany");
         EvaluationRecord pulled = null;
         try {
             pulled = new EvaluationRecord(d1, d2, d3, d4, d5, d6);
