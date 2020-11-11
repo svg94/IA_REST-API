@@ -1,9 +1,5 @@
 package org.hbrs.ia.main;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
 import org.hbrs.ia.contract.ManagePersonal;
 import org.hbrs.ia.contract.Manager;
 import org.hbrs.ia.contract.ui.ConsoleUI;
