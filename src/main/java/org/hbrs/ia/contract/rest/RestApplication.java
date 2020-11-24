@@ -7,8 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class RestApplication {
+    protected static ManagePersonal manager = new Manager();
     public static void main(String[] args){
-        //ManagePersonal manager = new Manager();
+
         SpringApplication.run(RestApplication.class, args);
     }
 }
